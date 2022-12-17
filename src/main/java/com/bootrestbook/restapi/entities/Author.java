@@ -1,5 +1,6 @@
 package com.bootrestbook.restapi.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -12,6 +13,18 @@ public class Author {
     @Column(name="lastName")
     private String last_name;
     private String language;
+    @OneToOne(mappedBy = "author")
+    @JsonBackReference
+    // Jsonbackreference prevents child from re-cretaing JSON
+    private Book book;
+
+    public Book getBook() {
+        return book;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
+    }
 
     public int getAuthor_id() {
         return author_id;
